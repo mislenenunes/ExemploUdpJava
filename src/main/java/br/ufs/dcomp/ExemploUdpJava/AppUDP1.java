@@ -24,6 +24,23 @@ public class AppUDP1 {
             System.out.print("[ Enviando datagrama UDP  ..................  ");
             socket.send(pack);
             System.out.println("[OK] ]");
+            
+            //Recebendo mensagem
+            byte[] bufrecebendo = new byte[20];
+            DatagramPacket packrecebendo = new DatagramPacket(bufrecebendo, bufrecebendo.length);
+
+            System.out.print("[ Aguardando recebimento de mensagem  ..................  ");
+            socket.receive(packrecebendo);
+            System.out.println("[OK] ]");
+            
+            byte[] received_data = packrecebendo.getData();
+            String received_msg = new String(received_data); 
+            InetAddress origin_address = packrecebendo.getAddress();
+            int origin_port = packrecebendo.getPort();
+            
+            System.out.println("  Mensagem:             "+received_msg);
+            System.out.println("  Endereço de origem:   "+origin_address.getHostAddress());
+            System.out.println("  Porta de origem:      "+origin_port);
 
         } catch (Exception e){
             System.out.println(e.getMessage());

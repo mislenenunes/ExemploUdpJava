@@ -27,11 +27,27 @@ public class AppUDP2 {
             System.out.println("  Endereço de origem:   "+origin_address.getHostAddress());
             System.out.println("  Porta de origem:      "+origin_port);
             
+             //enviando mensagem de resposta
+            String msgresposta = "Tudo bem";
+            
+            byte[] msg_buf = msgresposta.getBytes();
+            int msg_size = msg_buf.length;
+            InetAddress destination_address = InetAddress.getLocalHost();
+            int destination_port = 10000; 
+
+            System.out.print("[ Montando datagrama UDP  ..................  ");
+            DatagramPacket packresposta = new DatagramPacket(msg_buf, msg_size, destination_address, destination_port);
+            System.out.println("[OK] ]");
+            
+            System.out.print("[ Enviando datagrama UDP  ..................  ");
+            socket.send(packresposta);
+            System.out.println("[OK] ]");
+            
         } catch (Exception e){
             System.out.println(e.getMessage());
         }    
         
-        
+       
         
         
 
